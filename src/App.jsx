@@ -49,9 +49,7 @@ function App() {
     if (id) getSingleMovie(id);
   }, [id]);
 
-  // useEffect(() => {
-  //   if (id) getSingleMovie(id);
-  // }, [id]);
+ 
   const getMovieData = (movieType) => {
     console.log(movieType);
     if (movieType === "Popular") {
@@ -75,7 +73,7 @@ function App() {
     setNavUrl(url);
   };
 
-  // switch (movieType) {
+
   //   case "popular":
   //     {
   //       const URL = BASE_URL + "/movie/popular?api_key=" + API_KEY;
@@ -119,7 +117,7 @@ function App() {
   // const routeParams = useParams();
   // console.log("idddd", routeParams);
   return (
-    <div className="">
+    <div className="bg-gray-100">
       <Nav getMovieData={getMovieData} />
       <Routes>
         <Route
@@ -127,9 +125,8 @@ function App() {
           index
           element={<Movielist movieList={movieList} id={id} setId={setId} />}
         />
-        <Route path="/movie/:id" element={<MovieInfo />} />
+        <Route path="/movie/:id" element={<MovieInfo movie={movie} />} />
       </Routes>
-      {/* <Movielist movieList={movieList} id={id} setId={setId} /> */}
     </div>
   );
 }
