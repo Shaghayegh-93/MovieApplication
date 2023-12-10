@@ -10,9 +10,10 @@ function App() {
   const [isloading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState(null);
-  const API_KEY = process.env.VITE_REACT_APP_API_KEY;
+  // const API_KEY = process.env.VITE_REACT_APP_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3";
-  let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
+  let url =
+    BASE_URL + "/movie/popular?api_key=" + "cfae1015993cbff36f4010a72f78d4de";
   const [navUrl, setNavUrl] = useState(url);
   const [id, setId] = useState(null);
 
@@ -37,7 +38,9 @@ function App() {
     async function getSingleMovie() {
       try {
         const { data } = await axios.get(
-          BASE_URL + `/movie/${id}?api_key=` + API_KEY
+          BASE_URL +
+            `/movie/${id}?api_key=` +
+            "cfae1015993cbff36f4010a72f78d4de"
         );
         setMovie(data);
         //  setIsLoadingCurrentHotel(false);
@@ -53,21 +56,28 @@ function App() {
   const getMovieData = (movieType) => {
     console.log(movieType);
     if (movieType === "Popular") {
-      url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
+      url =
+        BASE_URL +
+        "/movie/popular?api_key=" +
+        "cfae1015993cbff36f4010a72f78d4de";
     }
     if (movieType === "Now Playing") {
       url =
         BASE_URL +
         "/movie/now_playing?language=en-US&page=1&api_key=" +
-        API_KEY;
+        "cfae1015993cbff36f4010a72f78d4de";
     }
     if (movieType === "Top Rated") {
       url =
-        BASE_URL + "/movie/top_rated?language=en-US&page=1&api_key=" + API_KEY;
+        BASE_URL +
+        "/movie/top_rated?language=en-US&page=1&api_key=" +
+        "cfae1015993cbff36f4010a72f78d4de";
     }
     if (movieType === "Upcoming") {
       url =
-        BASE_URL + "/movie/upcoming?language=en-US&page=1&api_key=" + API_KEY;
+        BASE_URL +
+        "/movie/upcoming?language=en-US&page=1&api_key=" +
+        "cfae1015993cbff36f4010a72f78d4de";
     }
 
     setNavUrl(url);
