@@ -1,21 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Movie from "./Movie";
 
-const Movielist = ({ movieList }) => {
-    console.log(movieList)
-    const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
+const Movielist = ({
+  movieList,
+  getSelectedMovieId,
+  getSingleMovie,
+  id,
+  setId,
+}) => {
+
+
   return (
-    <div className="grid grid-cols-6 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-2">
       {movieList?.map((movie) => {
         return (
-          //   <Link key={movie.id} to="/">
-          <ul>
-            <li>
-              <img src={MOVIE_IMAGE_PATH+movie.poster_path} alt="" />
-              <p>{movie.title}</p>
-            </li>
-          </ul>
-          //   </Link>
+          <Movie
+            movie={movie}
+            key={movie.id}
+            getSingleMovie={getSingleMovie}
+            id={id}
+            setId={setId}
+          />
         );
       })}
     </div>
