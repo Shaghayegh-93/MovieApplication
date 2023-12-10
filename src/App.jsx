@@ -10,7 +10,7 @@ function App() {
   const [isloading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState(null);
-  const API_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
+  const API_KEY = process.env.VITE_REACT_APP_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3";
   let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
   const [navUrl, setNavUrl] = useState(url);
