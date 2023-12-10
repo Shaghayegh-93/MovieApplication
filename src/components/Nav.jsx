@@ -7,11 +7,11 @@ const Nav = ({ getMovieData }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-500 py-4 px-4 shadow-lg ">
+    <nav className="bg-navy py-4 px-4 shadow-lg ">
+      
       <button className="md:hidden " onClick={() => setIsNavOpen(!isNavOpen)}>
         <Bars3Icon className="h-6 w-6 text-white" />
       </button>
-
       <ul className="md:flex items-center justify-between text-white hidden">
         {navItem.map((item) => (
           <li
@@ -31,9 +31,12 @@ const Nav = ({ getMovieData }) => {
       </ul>
       {/* DESKTOP MENU */}
       {isNavOpen && (
-        <ul className="flex items-center justify-between text-white flex-col flex-wrap border-t-2 ">
+        <ul className="flex items-center justify-between text-white flex-col flex-wrap   md:hidden">
           {navItem.map((item) => (
-            <li className="cursor-pointer  relative  w-full text-center" key={item}>
+            <li
+              className="cursor-pointer  relative  w-full text-center"
+              key={item}
+            >
               <NavLink
                 className=""
                 name={item}
