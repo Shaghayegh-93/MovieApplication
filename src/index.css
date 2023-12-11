@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#root {
+  @apply my-0 mx-auto  relative;
+}
+body {
+  @apply w-[100vw] min-h-[100vh] bg-gray-100;
+}
