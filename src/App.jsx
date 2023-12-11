@@ -115,7 +115,7 @@ function App() {
   // const routeParams = useParams();
   // console.log("idddd", routeParams);
   return (
-    <div className="bg-gray-100">
+    <div className="">
       <Nav getMovieData={getMovieData} />
       <Routes>
         <Route
