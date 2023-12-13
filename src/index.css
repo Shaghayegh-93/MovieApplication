@@ -5,5 +5,5 @@
   @apply my-0 mx-auto  relative;
 }
 body {
-  @apply w-[100vw] min-h-[100vh] bg-gray-100;
+  @apply overflow-x-hidden min-h-[100vh] bg-gray-100 ;
 }
