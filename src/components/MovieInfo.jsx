@@ -1,7 +1,6 @@
 import React from "react";
 
 const MovieInfo = ({ movie }) => {
-
   console.log("movieeeee:", movie);
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
   const backgroundImage = movie?.backdrop_path
@@ -11,9 +10,16 @@ const MovieInfo = ({ movie }) => {
   const releaseDate = movie?.release_date.split("-").at(0);
   console.log(releaseDate);
   //
+  const movieTime = movie?.runtime;
+  const toHoursAndMinutes = (movieTime) => {
+    const hours = Math.floor(movieTime / 60);
+    const minutes = movieTime % 60;
+    return { hours, minutes };
+  };
+  const { hours, minutes } = toHoursAndMinutes(movieTime);
+  console.log(hours, minutes);
 
   return (
- 
     <div className="relative m-auto h-screen my-10 ">
       {/* Navy overlay */}
       <div className="absolute h-full w-full inset-0 bg-navy bg-opacity-80"></div>
@@ -33,12 +39,13 @@ const MovieInfo = ({ movie }) => {
             alt=""
           />
         </div>
-        <div className="p-10 pt-28">
+       
+        <div className="flex  flex-col p-10 pt-28">
           <p className="font-bold  text-xl md:text-4xl tracking-wider mb-2 ">
             {movie?.title} <span className="font-normal">({releaseDate})</span>
           </p>
+          <p>{`${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`}</p>
         </div>
-
       </div>
     </div>
   );
