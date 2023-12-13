@@ -8,16 +8,18 @@ const Nav = ({ getMovieData }) => {
   console.log(isNavOpen);
 
   return (
-    <nav className="bg-navy w-full   py-4 md:px-24 px-2 shadow-lg ">
-      <div className="md:flex md:items-center md:justify-between">
+    <nav className="bg-navy   py-4 md:px-24 px-8 shadow-lg ">
+      <div className="flex items-center justify-between">
         <div className="text-white ">
           <h1>Logo</h1>
         </div>
 
-        <ul className="md:flex md:items-center md:justify-between absolute md:static bg-navy z-[-1] md:z-auto left-0 md:gap-6 text-white md:pb-0 pb-12 ">
+        <ul className={`md:flex md:items-center md:justify-between absolute md:static bg-navy z-50  md:z-auto left-0 w-full md:w-auto pl-9 md:pl-0 transition-all duration-500 ease-in md:gap-6 text-white md:pb-0 pb-2  ${isNavOpen?"top-14":"top-[-490px]"} `}>
           {navItem.map((item) => (
             <li
-              className={`cursor-pointer relative md:my-0 my-7 ${isNavOpen && ""}`}
+              className={`cursor-pointer relative md:my-0 my-4  ${
+                isNavOpen && ""
+              }`}
               key={item}
             >
               <NavLink
