@@ -7,22 +7,25 @@ const Movie = ({ movie, getSelectedMovieId, setId }) => {
 
   const movieRate = (Math.round(movie.vote_average * 100) / 100).toFixed(1);
 
+  
+
+  
+
   return (
     <div className="border-2 border-yellow-500 bg-white ">
       <Link to={`/movie/${movie.id}`}>
         <ul>
           <li onClick={() => setId(movie.id)}>
-            <div className="flex md:flex-col items-center justify-center p-2 md:p-4 ">
+            <div className="flex md:flex-col items-center justify-center md:pb-4 ">
               <div className="max-h-min ">
-                  <img
-                src={MOVIE_IMAGE_PATH + movie.poster_path}
-                className="w-[20%] object-fill md:h-60  md:w-screen md:mb-4"
-                alt=""
-              />
+                <img
+                  src={MOVIE_IMAGE_PATH + movie.poster_path}
+                  className="w-60 md:object-fill object-cover md:h-60  md:w-screen md:mb-4"
+                  alt=""
+                />
               </div>
-            
 
-              <div className="w-[80%] md:w-full p-4 md:p-0 ">
+              <div className="w-full  px-4">
                 <p className="font-bold md:font-bold text-xl md:text-lg  mb-2 ">
                   {movie?.title}
                 </p>
