@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
 
 const MovieInfo = ({ movie }) => {
-  // const [favorite, setFavorite] = useState([]);
   // const[id,selectedId]=useState(null)
   console.log("movieeeee:", movie);
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
