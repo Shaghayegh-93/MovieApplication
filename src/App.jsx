@@ -15,7 +15,7 @@ function App() {
     initialState: [],
   });
   const [watchList, setWatchList] = useLocalStorage({
-    key: "Favorite",
+    key: "WatchList",
     initialState: [],
   });
 
@@ -39,9 +39,9 @@ function App() {
           BASE_URL + `/search/movie?query=${search}&api_key=` + API_KEY,
           { signal }
         );
-        console.log("search", data);
 
         setMovieList(data.results);
+        
       } catch (error) {
         console.error("Error fetching movie list:", error);
       } finally {
