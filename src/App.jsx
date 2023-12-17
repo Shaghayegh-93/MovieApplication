@@ -5,14 +5,19 @@ import Movielist from "./components/Movielist";
 import Nav from "./components/Nav";
 import { Route, Routes } from "react-router-dom";
 import MovieInfo from "./components/MovieInfo";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [isloading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
-  console.log(movieList);
-  const [favorite, setFavorite] = useState([]);
-  const [watchList, setWatchList] = useState([]);
-  console.log("favorite", favorite);
+  const [favorite, setFavorite] = useLocalStorage({
+    key: "Favorite",
+    initialState: [],
+  });
+  const [watchList, setWatchList] = useLocalStorage({
+    key: "Favorite",
+    initialState: [],
+  });
 
   const [movie, setMovie] = useState(null);
   const API_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
@@ -20,13 +25,34 @@ function App() {
   let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
   const [navUrl, setNavUrl] = useState(url);
   const [id, setId] = useState(null);
-  console.log("id", id);
 
-  // let single = BASE_URL + `/movie/${id}`;
-  const addToFavorite = () => {
-    const favoriteMovie = movieList.find((movie) => movie.id).includes(id);
-    setFavorite(favoriteMovie);
-  };
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    async function fetchSerachData() {
+      try {
+        setIsLoading(true);
+        const { data } = await axios.get(
+          BASE_URL + `/search/movie?query=${search}&api_key=` + API_KEY,
+          { signal }
+        );
+        console.log("search", data);
+
+        setMovieList(data.results);
+      } catch (error) {
+        console.error("Error fetching movie list:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchSerachData();
+    return () => {
+      controller.abort();
+    };
+  }, [search]);
 
   useEffect(() => {
     async function fetchData() {
@@ -50,7 +76,6 @@ function App() {
           BASE_URL + `/movie/${id}?api_key=` + API_KEY
         );
         setMovie(data);
-        //  setIsLoadingCurrentHotel(false);
       } catch (error) {
         //  toast.error(error.message);
         //  setIsLoadingCurrentHotel(false);
@@ -82,24 +107,45 @@ function App() {
     setNavUrl(url);
   };
   const addFavoriteHandler = (movieId) => {
-    const isAlreadyFavorite = favorite.some((fav) => fav.id === Number(movieId));
+    const isAlreadyFavorite = favorite.some(
+      (fav) => fav.id === Number(movieId)
+    );
     if (isAlreadyFavorite) return;
     const favoriteMovie = movieList.find((fav) => fav.id === Number(movieId));
     setFavorite((prev) => setFavorite([...prev, favoriteMovie]));
   };
-   const addWatchList = (movieId) => {
-     const isAlreadyWatchList = favorite.some(
-       (fav) => fav.id === Number(movieId)
-     );
-     if (isAlreadyWatchList) return;
-     const watchMovie = movieList.find((movie) => movie.id === Number(movieId));
-     setWatchList((prev) => setWatchList([...prev, watchMovie]));
-   };
-  // const isAddToFavorites = favorite?.map((fav) => fav.id).includes(id);
+  const removeFavoriteHandler = (id) => {
+    const updatedFavorites = favorite.filter(
+      (movie) => movie.id !== Number(id)
+    );
+    setFavorite(updatedFavorites);
+  };
+  const removeWatchListHandler = (id) => {
+    const updatedWatchlist = watchList.filter(
+      (movie) => movie.id !== Number(id)
+    );
+    setWatchList(updatedWatchlist);
+  };
+  const addWatchList = (movieId) => {
+    const isAlreadyWatchList = favorite.some(
+      (fav) => fav.id === Number(movieId)
+    );
+    if (isAlreadyWatchList) return;
+    const watchMovie = movieList.find((movie) => movie.id === Number(movieId));
+    setWatchList((prev) => setWatchList([...prev, watchMovie]));
+  };
 
   return (
     <div className="">
-      <Nav getMovieData={getMovieData} />
+      <Nav
+        getMovieData={getMovieData}
+        search={search}
+        setSearch={setSearch}
+        favorite={favorite}
+        watchList={watchList}
+        removeFavoriteHandler={removeFavoriteHandler}
+        removeWatchListHandler={removeWatchListHandler}
+      />
       <Routes>
         <Route
           path="/"
@@ -113,8 +159,6 @@ function App() {
               movie={movie}
               addFavoriteHandler={addFavoriteHandler}
               addWatchList={addWatchList}
-              // isAddToFavorites={isAddToFavorites}
-              // isAlreadyFavorite={isAlreadyFavorite}
             />
           }
         />
