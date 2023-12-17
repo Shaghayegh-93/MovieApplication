@@ -5,7 +5,6 @@ import { ListBulletIcon } from "@heroicons/react/24/solid";
 const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  console.log("movieeeee:", movie);
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 
   const backgroundImage = movie?.backdrop_path
@@ -93,12 +92,12 @@ const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
               >
                 <HeartIcon
                   className={`cursor-pointer h-6 w-6 text-white absolute ${
-                    isFavorite ? "text-red-600" : ""
+                    isFavorite && "text-red-800"
                   }`}
                 />
               </button>
               <button
-                onClick={() => addWatchList(movie.id)}
+                onClick={() => addWatchList(movie?.id)}
                 className="bg-slate-700 w-6 h-6  items-center justify-center rounded-full p-6 inline-flex relative "
               >
                 <ListBulletIcon className="cursor-pointer h-6 w-6 text-white absolute" />
