@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-const Movie = ({ movie, getSelectedMovieId, setId }) => {
+const Movie = ({ movie, setId }) => {
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 
   const movieRate = (Math.round(movie.vote_average * 100) / 100).toFixed(1);
 
-  
-
-  
 
   return (
     <div className="border-2 border-yellow-500 bg-white ">
