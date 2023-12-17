@@ -143,7 +143,7 @@ function WatchList({ watchList, removeWatchListHandler }) {
       >
         <ListBulletIcon className="w-8 h-8 text-red-600" />
         <span className="absolute text-xs top-0 -right-2 h-4 leading-4 text-center bg-red-600 text-white rounded-full   py-2 px-[5px]  flex items-center justify-center">
-          {watchList.length}
+          {watchList?.length}
         </span>
       </button>
     </>

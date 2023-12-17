@@ -92,7 +92,7 @@ const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
               >
                 <HeartIcon
                   className={`cursor-pointer h-6 w-6 text-white absolute ${
-                    isFavorite && "text-red-800"
+                    isFavorite && "text-red-700"
                   }`}
                 />
               </button>
