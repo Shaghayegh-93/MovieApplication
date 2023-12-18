@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
 import { ListBulletIcon } from "@heroicons/react/24/solid";
 
-const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
+const MovieInfo = ({
+  movie,
+  addFavoriteHandler,
+  addWatchList,
+  isAddToFavourite,
+}) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
@@ -61,11 +66,10 @@ const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
           <p className="font-bold  text-xl md:text-4xl tracking-wider mb-2 ">
             {movie?.title} <span className="font-normal">({releaseDate})</span>
           </p>
-          <div className="flex mb-2 flex-col md:flex-row">
-            <span>{movieFormattedReleaseDate} &nbsp;</span> &bull; &nbsp;
-            <p>{`${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`}</p> &nbsp;
-            &bull; &nbsp;
-            <span className="flex list-none md:gap-2 gap-1 text-sm  ">
+          <div className="flex mb-4 items-center flex-col md:gap-2 md:flex-row md:text-lg ">
+            <span>{movieFormattedReleaseDate} </span> &nbsp;
+            <p>{`${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`}</p>&nbsp;
+            <span className="flex list-none md:gap-2 gap-1 text-sm md:text-lg ">
               {movie?.genres.map((genre) => (
                 <li
                   key={genre.id}
@@ -78,28 +82,71 @@ const MovieInfo = ({ movie, addFavoriteHandler, addWatchList }) => {
             </span>{" "}
             &nbsp;
           </div>
-          <div className="flex  items-center justify-between w-60 ">
-            <div className="flex items-center  ">
-              <span className=" w-6 h-6 p-9 inline-flex items-center justify-center rounded-full bg-yellow-500 text-white ">
+          <div className="flex  items-center  w-60 ">
+            {/* <div className=" items-center relative ">
+              <div
+                className={` border-2 p-6 rounded-full top-0 -left-1 w-2 h-2${
+                 Number( userScore )<= 40
+                    ? "border-red-500"
+                    : userScore <= 60
+                    ? "border-yellow-400"
+                    : "border-green-500"
+                }`}
+              ></div>
+              <span className="  w-6 h-6 p-6 inline-flex items-center justify-center rounded-full bg-yellow-500 text-white ">
                 {userScore}%
               </span>
-              <span className="w-1 px-2 text-lg font-bold">User score</span>
+            </div> */}
+            {/* <div className="items-center relative">
+                <div
+                  className={`border-2 p-6 rounded-full top-1 left-0 w-2 h-2 absolute ${
+                    Number(userScore) <= 40
+                      ? "border-red-500"
+                      : userScore <= 60
+                      ? "border-yellow-400"
+                      : "border-green-500"
+                  }`}
+                ></div>
+                <span className="w-6 h-7 p-7 inline-flex items-center justify-center rounded-full bg-slate-700 text-white">
+                  {userScore}%
+                </span>
+            </div> */}
+            <div className="items-center relative mr-3">
+              <div
+                className={`border-4 p-5 rounded-full top-0  left-0 w-6 h-6 absolute ${
+                  Number(userScore) <= 30
+                    ? "border-red-500"
+                    : userScore <= 50
+                    ? "border-yellow-400"
+                    : "border-green-500"
+                }`}
+              ></div>
+              <span className="w-6 h-6 p-6 inline-flex items-center justify-center rounded-full bg-slate-700 text-white">
+                {userScore}%
+              </span>
             </div>
+
             <div className="flex items-center gap-2 ">
               <button
                 onClick={toggleFavorite}
-                className="bg-slate-700 w-6 h-6  items-center justify-center rounded-full p-6 inline-flex relative "
+                className="bg-slate-700 w-6 h-6  items-center justify-center rounded-full p-6 inline-flex relative group "
               >
+                <div className="w-auto mx-auto rounded-md  px-4 py-2 bg-slate-700 text-white hidden absolute top-12 -left-5 group-hover:flex">
+                  Add to Favourite
+                </div>
                 <HeartIcon
                   className={`cursor-pointer h-6 w-6 text-white absolute ${
-                    isFavorite && "text-red-700"
+                    isFavorite ? "text-red-700" : ""
                   }`}
                 />
               </button>
               <button
                 onClick={() => addWatchList(movie?.id)}
-                className="bg-slate-700 w-6 h-6  items-center justify-center rounded-full p-6 inline-flex relative "
+                className="bg-slate-700 w-6 h-6  items-center justify-center rounded-full p-6 inline-flex relative group   "
               >
+                <div className="w-auto mx-auto rounded-md  px-4 py-2 bg-slate-700 text-white hidden absolute top-12 -left-5 group-hover:flex">
+                  Add to WatchList
+                </div>
                 <ListBulletIcon className="cursor-pointer h-6 w-6 text-white absolute" />
               </button>
             </div>
