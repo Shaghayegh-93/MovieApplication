@@ -28,47 +28,86 @@ function App() {
 
   const [search, setSearch] = useState("");
 
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const signal = controller.signal;
+
+  //   async function fetchSerachData() {
+  //     try {
+  //       setIsLoading(true);
+  //       const { data } = await axios.get(
+  //         BASE_URL + `/search/movie?query=${search}&api_key=` + API_KEY,
+  //         { signal }
+  //       );
+
+  //       setMovieList(data.results);
+
+  //       // setSearch("");
+  //       // setMovieList(movieList);
+  //     } catch (error) {
+  //       console.error("Error fetching movie list:", error);
+  //       //  if (!axios.isCancel()) {
+  //       //   setMovieList([]);}
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchSerachData();
+  //   return () => {
+  //     controller.abort();
+  //   };
+  // }, [search]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       setIsLoading(true);
+  //       const { data } = await axios.get(navUrl);
+
+  //       setMovieList(data.results);
+  //     } catch (error) {
+  //       console.error("Error fetching movie list:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [navUrl]);
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    async function fetchSerachData() {
+    async function fetchData() {
       try {
         setIsLoading(true);
-        const { data } = await axios.get(
-          BASE_URL + `/search/movie?query=${search}&api_key=` + API_KEY,
-          { signal }
-        );
 
-        setMovieList(data.results);
-        
+        let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
+
+        if (search) {
+          url = BASE_URL + `/search/movie?query=${search}&api_key=` + API_KEY;
+        }
+        setNavUrl(url);
+        const { data } = await axios.get(navUrl, { signal });
+
+        setMovieList(() => {
+          // If search is empty, replace the previous movie list with the new results
+          // Otherwise, merge the results with the previous movie list
+          return search ? data.results : data.results || [];
+        });
       } catch (error) {
         console.error("Error fetching movie list:", error);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchSerachData();
+
+    fetchData();
+
     return () => {
       controller.abort();
     };
   }, [search]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get(navUrl);
-
-        setMovieList(data.results);
-      } catch (error) {
-        console.error("Error fetching movie list:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchData();
-  }, [navUrl]);
   useEffect(() => {
     async function getSingleMovie() {
       try {
@@ -84,35 +123,77 @@ function App() {
     if (id) getSingleMovie(id);
   }, [id]);
 
-  const getMovieData = (movieType) => {
-    console.log(movieType);
-    if (movieType === "Popular") {
-      url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
-    }
-    if (movieType === "Now Playing") {
-      url =
-        BASE_URL +
-        "/movie/now_playing?language=en-US&page=1&api_key=" +
-        API_KEY;
-    }
-    if (movieType === "Top Rated") {
-      url =
-        BASE_URL + "/movie/top_rated?language=en-US&page=1&api_key=" + API_KEY;
-    }
-    if (movieType === "Upcoming") {
-      url =
-        BASE_URL + "/movie/upcoming?language=en-US&page=1&api_key=" + API_KEY;
-    }
+  // const getMovieData = (movieType) => {
+  //   if (movieType === "Popular") {
+  //     url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
+  //   }
+  //   if (movieType === "Now Playing") {
+  //     url =
+  //       BASE_URL +
+  //       "/movie/now_playing?language=en-US&page=1&api_key=" +
+  //       API_KEY;
+  //   }
+  //   if (movieType === "Top Rated") {
+  //     url =
+  //       BASE_URL + "/movie/top_rated?language=en-US&page=1&api_key=" + API_KEY;
+  //   }
+  //   if (movieType === "Upcoming") {
+  //     url =
+  //       BASE_URL + "/movie/upcoming?language=en-US&page=1&api_key=" + API_KEY;
+  //   }
 
-    setNavUrl(url);
+  //   setNavUrl(url);
+  // };
+  const getMovieData = async (movieType) => {
+    try {
+      let url = "";
+
+      if (movieType === "Popular") {
+        url = `${BASE_URL}/movie/popular?api_key=${API_KEY}`;
+      } else if (movieType === "Now Playing") {
+        url = `${BASE_URL}/movie/now_playing?language=en-US&page=1&api_key=${API_KEY}`;
+      } else if (movieType === "Top Rated") {
+        url = `${BASE_URL}/movie/top_rated?language=en-US&page=1&api_key=${API_KEY}`;
+      } else if (movieType === "Upcoming") {
+        url = `${BASE_URL}/movie/upcoming?language=en-US&page=1&api_key=${API_KEY}`;
+      } else {
+        // Handle an invalid movieType (optional)
+        console.error("Invalid movieType:", movieType);
+        return;
+      }
+
+      setNavUrl(url);
+
+      const { data } = await axios.get(url);
+      setMovieList(data.results || []);
+    } catch (error) {
+      console.error("Error fetching movie list:", error);
+    }
   };
+
+  // Example usage:
+  // getMovieData("Popular");
+  // getMovieData("Now Playing");
+  // getMovieData("Top Rated");
+  // getMovieData("Upcoming");
+
+  // const addFavoriteHandler = (movieId) => {
+  //   const favoriteMovie = movieList.find((fav) => fav.id === Number(movieId));
+  //   setFavorite((prev) => setFavorite([...prev, favoriteMovie]));
+  // };
+  //  const isAddToFavourite = favorite.map((fav) => fav.id).includes(Number(id));
   const addFavoriteHandler = (movieId) => {
-    const isAlreadyFavorite = favorite.some(
-      (fav) => fav.id === Number(movieId)
-    );
-    if (isAlreadyFavorite) return;
-    const favoriteMovie = movieList.find((fav) => fav.id === Number(movieId));
-    setFavorite((prev) => setFavorite([...prev, favoriteMovie]));
+    // Check if the movie with the given movieId is already in the favorites list
+    const isAlreadyAdded = favorite.some((fav) => fav.id === Number(movieId));
+
+    // If the movie is not already in the favorites list, add it
+    if (!isAlreadyAdded) {
+      const favoriteMovie = movieList.find((fav) => fav.id === Number(movieId));
+      setFavorite((prev) => [...prev, favoriteMovie]);
+    } else {
+      // Optionally, you can show a message or handle the case where the movie is already in the favorites list
+      console.log("Movie is already in favorites.");
+    }
   };
   const removeFavoriteHandler = (id) => {
     const updatedFavorites = favorite.filter(
@@ -126,13 +207,31 @@ function App() {
     );
     setWatchList(updatedWatchlist);
   };
+  // const addWatchList = (movieId) => {
+  //   // const isAlreadyWatchList = favorite.some(
+  //   //   (fav) => fav.id === Number(movieId)
+  //   // );
+  //   // if (isAlreadyWatchList) return;
+
+  //   const watchMovie = movieList.find((movie) => movie.id === Number(movieId));
+  //   setWatchList((prev) => setWatchList([...prev, watchMovie]));
+  // };
   const addWatchList = (movieId) => {
-    const isAlreadyWatchList = favorite.some(
-      (fav) => fav.id === Number(movieId)
+    // Check if the movie with the given movieId is already in the favorites list
+    const isAlreadyAdded = watchList.some(
+      (movie) => movie.id === Number(movieId)
     );
-    if (isAlreadyWatchList) return;
-    const watchMovie = movieList.find((movie) => movie.id === Number(movieId));
-    setWatchList((prev) => setWatchList([...prev, watchMovie]));
+
+    // If the movie is not already in the favorites list, add it
+    if (!isAlreadyAdded) {
+      const watchMovie = movieList.find(
+        (movie) => movie.id === Number(movieId)
+      );
+      setWatchList((prev) => [...prev, watchMovie]);
+    } else {
+      // Optionally, you can show a message or handle the case where the movie is already in the favorites list
+      console.log("Movie is already in favorites.");
+    }
   };
 
   return (
@@ -159,6 +258,7 @@ function App() {
               movie={movie}
               addFavoriteHandler={addFavoriteHandler}
               addWatchList={addWatchList}
+              // isAddToFavourite={isAddToFavourite}
             />
           }
         />
