@@ -6,12 +6,14 @@ const MovieInfo = ({
   movie,
   addFavoriteHandler,
   addWatchList,
-  isAddToFavourite,
   removeFavoriteHandler,
+  isAddToFavourite,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
+  const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/";
+  // const DEFAULT_IMAGE_URL = `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`;
+  // console.log("bbbbbbbb", movie?.backdrop_path);
 
   const backgroundImage = movie?.backdrop_path
     ? `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`
@@ -41,6 +43,7 @@ const MovieInfo = ({
     addFavoriteHandler(movie?.id);
     setIsFavorite(!isFavorite);
     if (isFavorite) removeFavoriteHandler(movie?.id);
+    console.log("isFavorite", isFavorite);
   };
 
   return (
@@ -113,7 +116,7 @@ const MovieInfo = ({
                   {userScore}%
                 </span>
             </div> */}
-            <div className="items-center relative mr-3">
+            <div className="items-center relative mr-3 group">
               <div
                 className={`border-4 p-5 rounded-full top-0  left-0 w-6 h-6 absolute ${
                   Number(userScore) <= 30
@@ -126,6 +129,9 @@ const MovieInfo = ({
               <span className="w-6 h-6 p-6 inline-flex items-center justify-center rounded-full bg-slate-700 text-white">
                 {userScore}%
               </span>
+              <div className="w-auto mx-auto rounded-md  px-4 py-2 bg-slate-700 text-white hidden absolute top-12 -left-5 group-hover:flex">
+                User Score
+              </div>
             </div>
 
             <div className="flex items-center gap-2 ">
@@ -138,7 +144,7 @@ const MovieInfo = ({
                 </div>
                 <HeartIcon
                   className={`cursor-pointer h-6 w-6 text-white absolute ${
-                    isFavorite ? "text-red-700" : ""
+                    isFavorite ? "text-red-800 " : ""
                   }`}
                 />
               </button>
