@@ -17,6 +17,7 @@ const Nav = ({
   watchList,
   removeFavoriteHandler,
   removeWatchListHandler,
+ 
 }) => {
   const navItem = ["Popular", "Now Playing", "Top Rated", "Upcoming"];
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -32,7 +33,6 @@ const Nav = ({
           </Link>
         </div>
         <div>
-        
           {isMovielistRoute && (
             <input
               type="text"
