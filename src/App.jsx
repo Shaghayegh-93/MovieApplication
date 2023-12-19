@@ -258,6 +258,7 @@ function App() {
               movie={movie}
               addFavoriteHandler={addFavoriteHandler}
               addWatchList={addWatchList}
+              removeFavoriteHandler={removeFavoriteHandler}
               // isAddToFavourite={isAddToFavourite}
             />
           }
