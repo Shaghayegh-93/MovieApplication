@@ -19,7 +19,10 @@ function App() {
     initialState: [],
   });
 
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useLocalStorage({
+    key: "Movie",
+    initialState: null,
+  });
   const API_KEY = import.meta.env.VITE_REACT_APP_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3";
   let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
@@ -95,7 +98,11 @@ function App() {
           return search ? data.results : data.results || [];
         });
       } catch (error) {
-        console.error("Error fetching movie list:", error);
+        if (!axios.isCancel(error)) {
+          setMovieList([]);
+          console.log("Error fetching movie list:", error);
+          //  toast.error(error.response.data.error);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -207,6 +214,8 @@ function App() {
     );
     setWatchList(updatedWatchlist);
   };
+  const isAddToFavourite = favorite.map((fav) => fav.id).includes(id);
+  console.log("isAddToFavourite", isAddToFavourite);
   // const addWatchList = (movieId) => {
   //   // const isAlreadyWatchList = favorite.some(
   //   //   (fav) => fav.id === Number(movieId)
@@ -244,6 +253,7 @@ function App() {
         watchList={watchList}
         removeFavoriteHandler={removeFavoriteHandler}
         removeWatchListHandler={removeWatchListHandler}
+        isAddToFavourite={isAddToFavourite}
       />
       <Routes>
         <Route
@@ -259,7 +269,7 @@ function App() {
               addFavoriteHandler={addFavoriteHandler}
               addWatchList={addWatchList}
               removeFavoriteHandler={removeFavoriteHandler}
-              // isAddToFavourite={isAddToFavourite}
+              isAddToFavourite={isAddToFavourite}
             />
           }
         />
