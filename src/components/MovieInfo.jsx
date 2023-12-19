@@ -7,6 +7,7 @@ const MovieInfo = ({
   addFavoriteHandler,
   addWatchList,
   isAddToFavourite,
+  removeFavoriteHandler,
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -39,6 +40,7 @@ const MovieInfo = ({
   const toggleFavorite = () => {
     addFavoriteHandler(movie?.id);
     setIsFavorite(!isFavorite);
+    if (isFavorite) removeFavoriteHandler(movie?.id);
   };
 
   return (
