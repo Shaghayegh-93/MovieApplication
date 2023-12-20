@@ -42,7 +42,7 @@ export default function useLocalStorage({ key, initialState }) {
         error
       );
     }
-  }, [key, value]);
+  }, [ value]);
 
   return [value, setValue];
 }
