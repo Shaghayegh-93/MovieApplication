@@ -132,7 +132,7 @@ function App() {
       }
     }
     if (id) getSingleMovie(id);
-  }, [id]);
+  }, []);
 
   // const getMovieData = (movieType) => {
   //   if (movieType === "Popular") {
