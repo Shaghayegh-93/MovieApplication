@@ -131,8 +131,7 @@ function App() {
         //  setIsLoadingCurrentHotel(false);
       }
     }
-    console.log("idddddddd",id)
-    if (id) getSingleMovie(id);
+    if (id) getSingleMovie(Number(id));
   }, [id]);
 
   // const getMovieData = (movieType) => {
