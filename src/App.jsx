@@ -14,6 +14,7 @@ function App() {
     key: "Favorite",
     initialState: [],
   });
+  console.log("favorite",favorite)
   const [watchList, setWatchList] = useLocalStorage({
     key: "WatchList",
     initialState: [],
