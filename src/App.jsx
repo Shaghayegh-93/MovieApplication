@@ -14,7 +14,7 @@ function App() {
     key: "Favorite",
     initialState: [],
   });
-  console.log("favorite",favorite)
+  console.log("favorite", favorite);
   const [watchList, setWatchList] = useLocalStorage({
     key: "WatchList",
     initialState: [],
@@ -28,7 +28,10 @@ function App() {
   const BASE_URL = "https://api.themoviedb.org/3";
   let url = BASE_URL + "/movie/popular?api_key=" + API_KEY;
   const [navUrl, setNavUrl] = useState(url);
-  const [id, setId] = useState(null);
+  const [id, setId] = useLocalStorage({
+    key: "Id",
+    initialState: null,
+  });
 
   const [search, setSearch] = useState("");
 
