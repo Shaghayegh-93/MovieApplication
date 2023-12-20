@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html class="overflow-x-hidden scroll-smooth" lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,5 +9,29 @@
   <body class="overscroll-x-none overflow-x-hidden ">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html class="overflow-x-hidden scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Application</title>
+    <script>
+      sessionStorage.redirect = location.href;
+    </script>
+    <meta http-equiv="refresh" content="0;URL='/'" />
+  </head>
+  <body class="overscroll-x-none overflow-x-hidden">
+    <div id="root"></div>
+    <script>
+      (() => {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </body>
 </html>
