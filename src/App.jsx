@@ -131,8 +131,9 @@ function App() {
         //  setIsLoadingCurrentHotel(false);
       }
     }
+    console.log("idddddddd",id)
     if (id) getSingleMovie(id);
-  }, []);
+  }, [id]);
 
   // const getMovieData = (movieType) => {
   //   if (movieType === "Popular") {
