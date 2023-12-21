@@ -9,7 +9,7 @@ const Movie = ({ movie, setId }) => {
 
 
   return (
-    <div className="border-2 border-yellow-500 bg-white overflow-hidden group">
+    <div className="border-2 border-yellow-500 bg-white overflow-hidden group rounded-md">
       <Link to={`/movie/${movie.id}`}>
         <ul className="transition duration-300 ease-in-out group-hover:scale-110">
           <li className="" onClick={() => setId(movie.id)}>
