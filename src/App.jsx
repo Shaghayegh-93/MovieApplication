@@ -9,6 +9,8 @@ import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [isloading, setIsLoading] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
+
   const [movieList, setMovieList] = useState([]);
   const [favorite, setFavorite] = useLocalStorage({
     key: "Favorite",
@@ -209,8 +211,10 @@ function App() {
   const removeFavoriteHandler = (id) => {
     const updatedFavorites = favorite.filter(
       (movie) => movie.id !== Number(id)
+     
     );
     setFavorite(updatedFavorites);
+     setIsFavorite(!isFavorite);
   };
   const removeWatchListHandler = (id) => {
     const updatedWatchlist = watchList.filter(
@@ -274,6 +278,8 @@ function App() {
               addWatchList={addWatchList}
               removeFavoriteHandler={removeFavoriteHandler}
               isAddToFavourite={isAddToFavourite}
+              isFavorite={isFavorite}
+              setIsFavorite={setIsFavorite}
             />
           }
         />
