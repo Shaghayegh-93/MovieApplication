@@ -8,9 +8,9 @@ const MovieInfo = ({
   addWatchList,
   removeFavoriteHandler,
   isAddToFavourite,
+  isFavorite,
+  setIsFavorite,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/";
   // const DEFAULT_IMAGE_URL = `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`;
   // console.log("bbbbbbbb", movie?.backdrop_path);
@@ -143,8 +143,8 @@ const MovieInfo = ({
                   Add to Favourite
                 </div>
                 <HeartIcon
-                  className={`cursor-pointer h-6 w-6 text-white absolute ${
-                    isFavorite ? "text-red-800 " : ""
+                  className={`cursor-pointer h-6 w-6 absolute ${
+                    isFavorite ? "text-red-700 !important" : "text-white "
                   }`}
                 />
               </button>
