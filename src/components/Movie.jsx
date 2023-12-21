@@ -9,11 +9,11 @@ const Movie = ({ movie, setId }) => {
 
 
   return (
-    <div className="border-2 border-yellow-500 bg-white ">
+    <div className="border-2 border-yellow-500 bg-white overflow-hidden group">
       <Link to={`/movie/${movie.id}`}>
-        <ul>
-          <li onClick={() => setId(movie.id)}>
-            <div className="flex md:flex-col items-center justify-center md:pb-4 ">
+        <ul className="transition duration-300 ease-in-out group-hover:scale-110">
+          <li className="" onClick={() => setId(movie.id)}>
+            <div className="flex md:flex-col items-center justify-center md:pb-4  ">
               <div className="max-h-min ">
                 <img
                   src={MOVIE_IMAGE_PATH + movie.poster_path}
@@ -23,12 +23,14 @@ const Movie = ({ movie, setId }) => {
               </div>
 
               <div className="w-full  px-4">
-                <p className="font-bold md:font-bold text-xl md:text-lg  mb-2 ">
+                <p className="font-bold md:font-bold text-xl md:text-lg   min-h-fit max-h-max h-20 ">
                   {movie?.title}
                 </p>
+             
                 <p className="line-clamp-3 text-sm font-Helvetica leading-4 mb-2 ">
                   {movie?.overview}
                 </p>
+             
                 <p className="flex">
                   <span className="flex items-center w-5">
                     <StarIcon className="h-6 w-6 text-yellow-400" />
