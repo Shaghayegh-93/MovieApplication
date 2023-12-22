@@ -3,7 +3,6 @@ import Movie from "./Movie";
 
 const Movielist = ({
   movieList,
-  getSelectedMovieId,
   getSingleMovie,
   id,
   setId,
