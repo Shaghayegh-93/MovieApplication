@@ -4,6 +4,7 @@ import {
   HeartIcon,
   TrashIcon,
   ListBulletIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -11,13 +12,11 @@ import Modal from "./Modal";
 
 const Nav = ({
   getMovieData,
-  search,
   setSearch,
   favorite,
   watchList,
   removeFavoriteHandler,
   removeWatchListHandler,
- 
 }) => {
   const navItem = ["Popular", "Now Playing", "Top Rated", "Upcoming"];
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -79,7 +78,11 @@ const Nav = ({
           </li>
         </ul>
         <button className="md:hidden " onClick={() => setIsNavOpen(!isNavOpen)}>
-          <Bars3Icon className="h-6 w-6 text-white" />
+          {isNavOpen ? (
+            <XMarkIcon className="h-6 w-6 text-white" />
+          ) : (
+            <Bars3Icon className="h-6 w-6 text-white" />
+          )}
         </button>
       </div>
     </nav>
