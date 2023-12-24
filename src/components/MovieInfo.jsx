@@ -13,7 +13,6 @@ const MovieInfo = ({
 }) => {
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/";
   // const DEFAULT_IMAGE_URL = `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`;
-  // console.log("bbbbbbbb", movie?.backdrop_path);
 
   const backgroundImage = movie?.backdrop_path
     ? `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`
