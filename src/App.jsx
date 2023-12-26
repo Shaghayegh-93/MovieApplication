@@ -170,7 +170,6 @@ function App() {
       } else if (movieType === "Upcoming") {
         url = `${BASE_URL}/movie/upcoming?language=en-US&page=1&api_key=${API_KEY}`;
       } else {
-        // Handle an invalid movieType (optional)
         console.error("Invalid movieType:", movieType);
         return;
       }
@@ -223,7 +222,6 @@ function App() {
     setWatchList(updatedWatchlist);
   };
   const isAddToFavourite = favorite.map((fav) => fav.id).includes(id);
-  console.log("isAddToFavourite", isAddToFavourite);
   // const addWatchList = (movieId) => {
   //   // const isAlreadyWatchList = favorite.some(
   //   //   (fav) => fav.id === Number(movieId)
