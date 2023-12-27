@@ -244,7 +244,6 @@ function App() {
       );
       setWatchList((prev) => [...prev, watchMovie]);
     } else {
-      // Optionally, you can show a message or handle the case where the movie is already in the favorites list
       console.log("Movie is already in favorites.");
     }
   };
