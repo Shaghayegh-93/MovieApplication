@@ -7,12 +7,10 @@ const MovieInfo = ({
   addFavoriteHandler,
   addWatchList,
   removeFavoriteHandler,
-  isAddToFavourite,
   isFavorite,
   setIsFavorite,
 }) => {
   const MOVIE_IMAGE_PATH = "https://image.tmdb.org/t/p/w500/";
-  // const DEFAULT_IMAGE_URL = `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`;
 
   const backgroundImage = movie?.backdrop_path
     ? `${MOVIE_IMAGE_PATH}${movie?.backdrop_path}`
@@ -42,7 +40,6 @@ const MovieInfo = ({
     addFavoriteHandler(movie?.id);
     setIsFavorite(!isFavorite);
     if (isFavorite) removeFavoriteHandler(movie?.id);
-    console.log("isFavorite", isFavorite);
   };
 
   return (
@@ -87,34 +84,7 @@ const MovieInfo = ({
             &nbsp;
           </div>
           <div className="flex  items-center  w-60 ">
-            {/* <div className=" items-center relative ">
-              <div
-                className={` border-2 p-6 rounded-full top-0 -left-1 w-2 h-2${
-                 Number( userScore )<= 40
-                    ? "border-red-500"
-                    : userScore <= 60
-                    ? "border-yellow-400"
-                    : "border-green-500"
-                }`}
-              ></div>
-              <span className="  w-6 h-6 p-6 inline-flex items-center justify-center rounded-full bg-yellow-500 text-white ">
-                {userScore}%
-              </span>
-            </div> */}
-            {/* <div className="items-center relative">
-                <div
-                  className={`border-2 p-6 rounded-full top-1 left-0 w-2 h-2 absolute ${
-                    Number(userScore) <= 40
-                      ? "border-red-500"
-                      : userScore <= 60
-                      ? "border-yellow-400"
-                      : "border-green-500"
-                  }`}
-                ></div>
-                <span className="w-6 h-7 p-7 inline-flex items-center justify-center rounded-full bg-slate-700 text-white">
-                  {userScore}%
-                </span>
-            </div> */}
+          
             <div className="items-center relative mr-3 group">
               <div
                 className={`border-4 p-5 rounded-full top-0  left-0 w-6 h-6 absolute ${
